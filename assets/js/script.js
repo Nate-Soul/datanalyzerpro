@@ -53,8 +53,17 @@ const calculateSD = (data) => {
     const squaredDifferences = data.map(value => Math.pow(parseFloat(value) - mean, 2));
     const sumSquaredDiff     = squaredDifferences.reduce((sum, value) => sum + value, 0);
 
+    //check the standard deviation type
+    const stdDeviationChoices = document.querySelectorAll("input[name='stdDeviationType']");
+    let stdDeviationType;
+    for (const stdDeviationChoice of stdDeviationChoices){
+        if (stdDeviationChoice.checked) {
+            stdDeviationType = stdDeviationChoice.value;
+            break;
+        }
+    }
     //calculate the variance
-    const variance = sumSquaredDiff / data.length;
+    const variance = stdDeviationType === "population" ? sumSquaredDiff / data.length : sumSquaredDiff / data.length - 1;
     const standardDeviation = Math.sqrt(variance);
     return standardDeviation.toFixed(3);
 };
@@ -100,7 +109,7 @@ const compareData = () => {
         const nodes = document.querySelector("#compareDataBtn").childNodes[0].textContent = "Compare data";
         document.querySelector("#compareDataBtn img").classList.replace("d-block", "d-none");
     } else {
-        errorDisplay.textContent = "Please check your Data and try again";
+        errorDisplay.textContent = "Please check your values and try again";
         document.querySelector("#results").classList.replace("d-block", "d-none");
         //change submit button text and remove loader
         const nodes = document.querySelector("#compareDataBtn").childNodes[0].textContent = "Compare data";
