@@ -23,7 +23,7 @@
                 Welcome to DatAnalyzer Pro – your go-to solution for seamless
                 dataset analysis. Empowering you to effortlessly compare and
                 understand two datasets simultaneously, our app delivers precise
-                insights with calculated means, standard deviations, and T-test
+                insights with calculated means, standard deviations T-test and ANOVA
                 results. Dive into the world of data analytics with confidence,
                 transforming raw information into actionable knowledge. Elevate
                 your decision-making process with DatAnalyzer Pro today!
@@ -99,7 +99,7 @@
         <div class="row py-lg-5">
           <div class="col-lg-6 col-md-8 mx-auto">
             <h1 class="fw-light text-capitalize">
-              Compare, Analyze, and Interpret Your Datasets with Precision!
+              Compare, Analyze, and Interprete Your Datasets with Precision!
             </h1>
             <p class="lead text-muted">
               Effortlessly analyze two datasets side by side, uncovering
@@ -125,10 +125,10 @@
                   <p class="form-text">
                     To start comparing your datasets, enter your dataset values
                     <span class="text-info">(numbers only)</span> separated by
-                    commas on each text field, change the standard deviation
-                    type, and click on compare data to see results.
+                    commas in the text field. You can add more text fields as per your requirements.
+                    Select the analysis options you need and click on compare data to get results.
                   </p>
-                  <div class="mb-3 form-floating">
+                  <div id="dataBox1" class="mb-3 form-floating data-field">
                     <textarea
                       name="field1"
                       id="field1"
@@ -138,47 +138,85 @@
                     ></textarea>
                     <label for="field1">Dataset 1</label>
                   </div>
-                  <div class="mb-3 form-floating">
-                    <textarea
-                      name="field2"
-                      id="field2"
-                      rows="5"
-                      class="form-control"
-                      required
-                    ></textarea>
-                    <label for="field2">Dataset 2</label>
-                  </div>
+                  <button type="button" id="createFieldBtn" class="btn rounded-circle">
+                    <span>&plus;</span>
+                  </button>
                   <div class="mb-3">
                     <div class="form-check">
                       <input
-                        type="radio"
-                        name="stdDeviationType"
-                        id="stdDeviationType2"
+                        type="checkbox"
+                        name="analysisOptions[]"
+                        id="stdDeviationType_population"
                         class="form-check-input"
                         value="population"
                         checked
                       />
-                      <label 
-                        for="stdDeviationType1"
-                        class="form-check-label"
-                        >Population Standard Deviation</label
-                      >
+                      <label for="stdDeviationType_population" class="form-check-label">
+                        Population Standard Deviation
+                      </label>
                     </div>
                     <div class="form-check">
                       <input
-                        type="radio"
-                        name="stdDeviationType"
-                        id="stdDeviationType1"
+                        type="checkbox"
+                        name="analysisOptions[]"
+                        id="stdDeviationType_sample"
                         class="form-check-input"
                         value="sample"
                       />
-                      <label 
-                        for="stdDeviationType1"
-                        class="form-check-label"
-                        >Sample Standard Deviation</label
-                      >
+                      <label for="stdDeviationType_sample" class="form-check-label">
+                        Sample Standard Deviation
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        name="analysisOptions[]"
+                        id="meanOption"
+                        class="form-check-input"
+                        value="mean"
+                      />
+                      <label for="meanOption" class="form-check-label">
+                        Mean
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        name="analysisOptions[]"
+                        id="tTest"
+                        class="form-check-input"
+                        value="t_test"
+                      />
+                      <label for="tTest" class="form-check-label">
+                        Student T-test
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        name="analysisOptions[]"
+                        id="anovaOneWay"
+                        class="form-check-input"
+                        value="anova_one_way"
+                      />
+                      <label for="anovaOneWay" class="form-check-label">
+                        One Way Anova
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        name="analysisOptions[]"
+                        id="anovaTwoWay"
+                        class="form-check-input"
+                        value="anova_two_way"
+                      />
+                      <label for="anovaTwoWay" class="form-check-label">
+                        Two Way Anova
+                      </label>
                     </div>
                   </div>
+                  
                   <button
                     id="compareDataBtn"
                     class="btn btn-dark w-100 d-inline-flex justify-content-center align-items-center"
@@ -199,24 +237,7 @@
                 </form>
                 <div id="results" class="p-4 mt-2 d-none">
                   <h5 class="h5 mb-4">Results</h5>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <th>Mean 1</th>
-                        <th>Mean 2</th>
-                        <th>SD 1</th>
-                        <th>SD 2</th>
-                        <th>T-test</th>
-                      </thead>
-                      <tbody>
-                        <td id="mean1"></td>
-                        <td id="mean2"></td>
-                        <td id="sd1"></td>
-                        <td id="sd2"></td>
-                        <td id="tTest"></td>
-                      </tbody>
-                    </table>
-                  </div>
+                  <div class="inner"></div>
                 </div>
               </div>
             </div>
@@ -229,6 +250,6 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script2.js"></script>
   </body>
 </html>
