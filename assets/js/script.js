@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const newDataField = document.createElement("div");
         newDataField.id = `dataBox${uniqueId}`;
-        newDataField.classList = "mb-3 form-floating data-field";
+        newDataField.classList = "mb-3 form-floating data-field position-relative";
 
         const textarea = document.createElement("textarea");
         textarea.name = `field_${uniqueId}`;
@@ -349,7 +349,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!allDataValid) {
             resultsDisplay.classList.replace("d-block", "d-none");
-            toggleSubmitButton("Compare Data", false);
+            toggleSubmitButton("Run Analysis", false);
             return;
         }
 
@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         displayResults(analysisResults);
-        toggleSubmitButton("Compare Data", false);
+        toggleSubmitButton("Run Analysis", false);
         errorDisplay.textContent = ""; // Clear any lingering errors if successful
     };
 
@@ -409,13 +409,13 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         resultsDisplay.classList.replace("d-block", "d-none"); // Hide previous results
         errorDisplay.textContent = ""; // Clear previous errors
-        toggleSubmitButton("Comparing...", true); // Show loader
+        toggleSubmitButton("Running...", true); // Show loader
 
         const options = getAnalysisOptions();
 
         if (options.length === 0) {
             errorDisplay.textContent = "Please select at least one analysis option to continue.";
-            toggleSubmitButton("Compare Data", false);
+            toggleSubmitButton("Run Analysis", false);
             return;
         }
 
