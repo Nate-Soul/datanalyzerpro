@@ -1034,12 +1034,43 @@ body {
         display: none;
     }
 
+    .hero, .nav-container {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .hero-title {
+        font-size: 48px;
+        line-height: 57.6px;
+    }
+
+    .features, .how-it-works, .product-showcase, .pricing, .testimonials {
+        padding: 80px 0;
+    }
+
     .footer-content {
         gap: 2rem;
     }
 }
 
 @media (max-width: 440px) {
+    .container {
+        padding: 0 24px;
+    }
+
+    .hero, .nav-container {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .hero-subtitle {
+        font-size: 18px;
+    }
+
+    .features, .how-it-works, .product-showcase, .pricing, .testimonials {
+        padding: 40px 0;
+    }
+
     .step-number {
         width: 50px;
         height: 50px;
@@ -1048,6 +1079,15 @@ body {
 }
 
 @media (max-width: 360px) {
+    .hero-title {
+        font-size: 40px;
+        line-height: 48px;
+    }
+
+    .hero-subtitle {
+        font-size: 16px;
+    }
+
     .step {
         flex-direction: column;
     }
