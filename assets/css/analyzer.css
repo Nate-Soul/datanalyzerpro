@@ -1,0 +1,496 @@
+/* Card-based layout */
+.container {
+    max-width: 900px;
+    width: 100%;
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    padding: 32px 40px 48px;
+    min-height: 1700px;
+}
+
+/* Typography */
+h1 {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 32px;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-top: 32px;
+    margin-bottom: 24px;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.instructional-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-medium);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.instructional-text strong {
+    font-weight: 500;
+    color: var(--primary-blue);
+}
+
+/* Input Field Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--text-dark);
+    background-color: var(--white);
+    line-height: 1.5;
+}
+
+.input-field::placeholder {
+    color: var(--text-medium);
+    opacity: 0.7;
+}
+
+.input-field:focus {
+    border-color: var(--accent-blue);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(89, 152, 214, 0.2);
+}
+
+input[type='text'].input-field {
+    height: 48px;
+}
+
+textarea.input-field {
+    min-height: 96px;
+    resize: vertical;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+/* Dataset Field structure */
+.dataset-field-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.dataset-label-input {
+    flex: 1;
+}
+
+.dataset-value-input {
+    flex: 3;
+    position: relative;
+}
+
+.dataset-fields-container {
+    margin-bottom: 24px;
+}
+
+.validation-message {
+    font-size: 12px;
+    color: var(--error-red);
+    margin-top: 4px;
+    min-height: 18px;
+}
+
+/* Remove Button */
+.remove-dataset-btn {
+    width: 28px;
+    height: 28px;
+    background-color: var(--error-red);
+    border: none;
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 56px;
+    transform: translateY(-8px);
+}
+
+.remove-dataset-btn:hover {
+    background-color: var(--error-red-darker);
+    transform: translateY(-9px) scale(1.05);
+    box-shadow: 0 2px 8px rgba(214, 73, 55, 0.3);
+}
+
+.remove-dataset-btn:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* Add Dataset Control */
+.add-dataset-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background-color: var(--light-blue-bg);
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    color: var(--primary-blue);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    width: fit-content;
+    margin-bottom: 32px;
+}
+
+.add-dataset-btn:hover {
+    background-color: #dfe9f3;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.add-dataset-btn:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+.add-dataset-btn .fa-plus {
+    font-size: 18px;
+    color: var(--primary-blue);
+}
+
+/* Analysis Options */
+.analysis-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 24px;
+    margin-top: 16px;
+    margin-bottom: 32px;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-gray);
+    border-radius: 4px;
+    margin-right: 12px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    display: grid;
+    place-content: center;
+}
+
+.checkbox-group input[type='checkbox']:checked {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+
+.checkbox-group input[type='checkbox']:checked::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--white);
+    font-size: 12px;
+}
+
+.checkbox-group label {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+.checkbox-group input[type='checkbox']:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* Primary Action Button */
+.run-analysis-btn {
+    width: 100%;
+    height: 56px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(45, 97, 164, 0.2);
+    margin-top: 24px;
+}
+
+.run-analysis-btn:hover {
+    background-color: #244d82;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(45, 97, 164, 0.3);
+}
+
+.run-analysis-btn:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* File Import Section */
+.file-import-section {
+    margin-top: 32px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.file-upload-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px dashed var(--border-gray);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    background-color: var(--white);
+}
+
+.file-upload-wrapper:hover {
+    border-color: var(--accent-blue);
+    background-color: rgba(89, 152, 214, 0.05);
+}
+
+.file-upload-wrapper i {
+    font-size: 48px;
+    color: var(--text-medium);
+    margin-bottom: 16px;
+}
+
+.file-upload-wrapper p {
+    margin: 0;
+    font-size: 16px;
+    color: var(--text-medium);
+}
+
+.file-upload-wrapper strong {
+    color: var(--primary-blue);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.file-upload-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--light-blue-bg);
+    border: 1px solid var(--border-light-gray);
+    border-radius: 8px;
+    color: var(--primary-blue);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+.file-upload-button:hover {
+    background-color: #dfe9f3;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.file-upload-button:focus {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: var(--text-medium);
+    font-size: 14px;
+    margin: 32px 0;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-gray);
+}
+
+.separator:not(:empty)::before {
+    margin-right: 1em;
+}
+
+.separator:not(:empty)::after {
+    margin-left: 1em;
+}
+
+/* Presets dropdown */
+.preset-selection {
+    margin-bottom: 24px;
+}
+
+.preset-selection label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.preset-selection select {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    background-color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--text-dark);
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235E6B7A'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 20px;
+}
+
+.preset-selection select:focus {
+    border-color: var(--accent-blue);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(89, 152, 214, 0.2);
+}
+
+#file-preview {
+    display: none;
+    background-color: var(--background-gray);
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+#imported-datasets-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-medium);
+}
+
+#imported-datasets-list li {
+    margin-bottom: 4px;
+}
+
+#imported-datasets-list li strong {
+    color: var(--text-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+    padding: 20px 15px;
+    }
+
+    .container {
+    padding: 24px 20px;
+    min-height: auto;
+    }
+
+    h1 {
+    font-size: 24px;
+    margin-bottom: 24px;
+    }
+
+    h2 {
+    font-size: 18px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    }
+
+    .dataset-field-row {
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    }
+
+    .dataset-label-input {
+    width: 100%;
+    order: -1;
+    }
+
+    .dataset-value-input {
+    position: relative;
+    width: 100%;
+    }
+
+    .remove-dataset-btn {
+    position: absolute;
+    top: -0.5rem;
+    right: 12px;
+    margin-top: 0;
+    transform: translateY(0);
+    }
+
+    .add-dataset-btn {
+    width: 100%;
+    justify-content: center;
+    }
+
+    .analysis-options-grid {
+    grid-template-columns: 1fr;
+    }
+
+    .file-upload-wrapper i {
+    font-size: 36px;
+    margin-bottom: 12px;
+    }
+
+    .file-upload-wrapper p {
+    font-size: 14px;
+    }
+
+    .file-upload-button {
+    font-size: 14px;
+    padding: 10px 20px;
+    }
+}

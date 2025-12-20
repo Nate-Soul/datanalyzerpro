@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Analysis Results - Statistical Data Analysis Tool</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Roboto+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="./assets/css/styles.css">
+      <link rel="stylesheet" href="./assets/css/results.css">
+  </head>
+  <body>
+    <div class="results-container">
+      <!-- Header Section -->
+      <div class="results-header">
+        <a href="./analyzer.html" class="back-button analysis-back-button">
+          <i class="fas fa-arrow-left"></i>
+          Back to Analysis
+        </a>
+        <h1 class="page-title">Analysis Results</h1>
+        <p class="page-subtitle"></p>
+      </div>
+
+      <!-- Export Action Bar -->
+      <div class="export-action-bar">
+        <button id="exportPDFBtn" class="export-btn pdf">
+          <i class="fas fa-file-pdf"></i>
+          Export as PDF
+        </button>
+        <button id="exportCSVBtn" class="export-btn csv">
+          <i class="fas fa-file-csv"></i>
+          Export as CSV
+        </button>
+        <button id="exportXLSXBtn" class="export-btn xlsx">
+          <i class="fas fa-file-excel"></i>
+          Export as XLSX
+        </button>
+        <button id="sharePageBtn" class="export-btn copy">
+          <i class="fas fa-share"></i>
+          Share
+        </button>
+      </div>
+
+      <!-- AI Feature Card -->
+      <div class="ai-feature-card">
+        <i class="fas fa-robot ai-icon"></i>
+        <div class="ai-content">
+          <div class="ai-title">Ask AI About Your Data</div>
+          <div class="ai-description">
+            Get intelligent insights and natural language explanations of your statistical results
+          </div>
+        </div>
+        <span class="coming-soon-badge">Coming Soon</span>
+      </div>
+
+      <!-- Summary Statistics Section -->
+      <section class="analysis-section summary-stat-section">
+        <h2 class="section-header">Summary Statistics</h2>
+        <div class="results-grid"></div>
+      </section>
+
+      <!-- Detailed Analysis Section -->
+      <section class="analysis-section descriptive-stat-section">
+        <h2 class="section-header">Descriptive Statistics</h2>
+        
+        <div class="table-responsive" style="margin-top: 24px">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Dataset</th>
+                <th>Mean</th>
+                <th>Median</th>
+                <th>Std Dev</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Range</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- T-Test Results -->
+      <section class="analysis-section t-test-section">
+        <h2 class="section-header">Student T-Test Results</h2>
+        <div class="test-result-card significant"></div>
+        <!-- <div class="test-result-card significant"></div> -->
+      </section>
+
+      <!-- ANOVA Results -->
+      <section class="analysis-section one-way-anova-section">
+        <h2 class="section-header">One-Way ANOVA Results</h2>
+        
+       <div class="test-result-card significant">
+          <div class="test-name">Analysis of Variance Across All Groups</div>
+          <div class="test-stats">
+            <div class="stat-item">
+              <span class="stat-label">F-statistic</span>
+              <span class="stat-value f-value">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">p-value</span>
+              <span class="stat-value p-value significant"></span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Between Groups df</span>
+              <span class="stat-value between-groups-df"></span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Within Groups df</span>
+              <span class="stat-value within-groups-df"></span>
+            </div>
+          </div>
+          <div class="interpretation"></div>
+        </div>
+
+        <div class="table-responsive" style="margin-top: 24px">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th>Source</th>
+                <th>Sum of Squares</th>
+                <th>Degrees of Freedom</th>
+                <th>Mean Square</th>
+                <th>F-statistic</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+      </section>
+
+      <!-- Visual Insights -->
+      <section class="analysis-section visual-insights">
+        <h2 class="section-header">Visual Insights</h2>
+        <p style="color: var(--text-medium); margin-bottom: 16px; font-size: 14px">
+          Visual charts are generated in the PDF export. Preview placeholders shown below.
+        </p>
+        <div class="chart-grid">
+          <div class="chart-placeholder">
+            <i class="fas fa-chart-bar"></i>
+            <p><strong>Mean Comparison Chart</strong></p>
+            <p>Bar chart comparing means across datasets</p>
+          </div>
+          <div class="chart-placeholder">
+            <i class="fas fa-chart-simple"></i>
+            <p><strong>Box Plot Distribution</strong></p>
+            <p>Visualizing data spread and outliers</p>
+          </div>
+          <div class="chart-placeholder">
+            <i class="fas fa-chart-area"></i>
+            <p><strong>Distribution Histogram</strong></p>
+            <p>Frequency distribution of values</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer Actions -->
+      <div class="footer-actions">
+        <div class="timestamp"></div>
+        <a href="./analyzer.html" class="secondary-btn analysis-back-button">
+          <i class="fas fa-plus-circle"></i>
+          Run New Analysis
+        </a>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.6/jstat.min.js"></script>
+    <script src="./assets/js/results.js"></script>
+</body>
+</html>

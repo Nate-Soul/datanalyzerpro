@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Statistical Data Analysis Tool</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/css/styles.css">
+        <link rel="stylesheet" href="./assets/css/analyzer.css">
+  </head>
+  <body>
+    <div class="container">
+        <a href="./index.html" class="back-button">
+          <i class="fas fa-arrow-left"></i>
+          Go Back Home
+        </a> <br><br>
+      <h1>Compare Your Data</h1>
+
+      <div class="preset-selection">
+        <label for="preset-select">Select a Preset</label>
+        <select id="preset-select">
+          <option value="none">-- Select an option --</option>
+          <option value="two-group">Two-group Comparison</option>
+          <option value="anova-3-plus">ANOVA (3+ groups)</option>
+          <option value="custom">Custom Analysis</option>
+        </select>
+      </div>
+
+      <p class="instructional-text">
+        To get started, upload your datasets from a file or manually enter comma-separated values
+        into the fields below. Ensure all inputs contain <strong>numbers only</strong>. You can add
+        or remove datasets as needed, then select your desired statistical analysis options and click
+        "Run Analysis" to view results.
+      </p>
+
+      <div class="file-import-section">
+        <input type="file" id="file-upload" accept=".csv, .xlsx" style="display: none">
+        <div class="file-upload-wrapper" role="button" tabindex="0">
+          <i class="fas fa-cloud-arrow-up"></i>
+          <p>
+            Drag &amp; drop files here or
+            <strong class="file-upload-button">Browse Files</strong>
+          </p>
+          <p style="font-size: 14px; margin-top: 8px">Supports CSV and XLSX formats</p>
+        </div>
+        <div id="file-preview">
+          <h3>Imported Data Preview:</h3>
+          <ul id="imported-datasets-list"></ul>
+        </div>
+        <div class="separator">OR</div>
+      </div>
+
+      <h2 style="margin-top: 0;">Manually Enter Data</h2>
+      <div id="dataset-fields-container" class="dataset-fields-container">
+        <!-- Dataset 1 (not removable) -->
+        <div class="dataset-field-row" data-id="1">
+          <div class="form-group dataset-label-input">
+            <label for="dataset-label-1">Dataset 1 Label</label>
+            <input type="text" id="dataset-label-1" class="input-field" placeholder="e.g., Control Group" value="Dataset 1">
+          </div>
+          <div class="form-group dataset-value-input">
+            <label for="dataset-values-1">Comma-separated values</label>
+            <textarea id="dataset-values-1" class="input-field" placeholder="e.g., 10, 12, 15, 11, 13"></textarea>
+            <div id="validation-1" class="validation-message"></div>
+          </div>
+        </div>
+
+        <!-- Dataset 2 -->
+        <div class="dataset-field-row" data-id="2">
+          <div class="form-group dataset-label-input">
+            <label for="dataset-label-2">Dataset 2 Label</label>
+            <input type="text" id="dataset-label-2" class="input-field" placeholder="e.g., Test Group A" value="Dataset 2">
+          </div>
+          <div class="form-group dataset-value-input">
+            <label for="dataset-values-2">Comma-separated values</label>
+            <textarea id="dataset-values-2" class="input-field" placeholder="e.g., 14, 16, 17, 15, 18"></textarea>
+            <div id="validation-2" class="validation-message"></div>
+          </div>
+          <button type="button" class="remove-dataset-btn" data-id="2" aria-label="Remove Dataset 2">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <!-- Dataset 3 -->
+        <div class="dataset-field-row" data-id="3">
+          <div class="form-group dataset-label-input">
+            <label for="dataset-label-3">Dataset 3 Label</label>
+            <input type="text" id="dataset-label-3" class="input-field" placeholder="e.g., Test Group B" value="Dataset 3">
+          </div>
+          <div class="form-group dataset-value-input">
+            <label for="dataset-values-3">Comma-separated values</label>
+            <textarea id="dataset-values-3" class="input-field" placeholder="e.g., 18, 20, 19, 21, 22"></textarea>
+            <div id="validation-3" class="validation-message"></div>
+          </div>
+          <button type="button" class="remove-dataset-btn" data-id="3" aria-label="Remove Dataset 3">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="button" id="add-dataset" class="add-dataset-btn">
+        <i class="fas fa-plus"></i> Add Another Dataset
+      </button>
+
+      <h2>2. Select Analysis Options</h2>
+      <div class="analysis-options-grid">
+        <div class="checkbox-group">
+          <input type="checkbox" id="option-pop-std-dev" name="analysis-option" value="population-std-dev" checked>
+          <label for="option-pop-std-dev">Population Standard Deviation</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="option-sample-std-dev" name="analysis-option" value="sample-std-dev" checked>
+          <label for="option-sample-std-dev">Sample Standard Deviation</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="option-mean" name="analysis-option" value="mean" checked>
+          <label for="option-mean">Mean</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="option-t-test" name="analysis-option" value="t-test">
+          <label for="option-t-test">Student T-test</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="option-anova-one-way" name="analysis-option" value="anova-one-way">
+          <label for="option-anova-one-way">One Way ANOVA</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="option-anova-two-way" name="analysis-option" value="anova-two-way">
+          <label for="option-anova-two-way">Two Way ANOVA</label>
+        </div>
+      </div>
+
+      <button type="submit" class="run-analysis-btn">
+        Run Analysis
+        <img src="./assets/images/loader.gif" alt="" style="margin-left: .5rem; display: none;">
+      </button>
+      <div id="errorDisplay" style="color: #d64937; text-align: center; margin-top: 1rem;"></div>
+      <div id="results" style="display: none; margin-top: 1rem;"></div>
+    </div>
+
+    <script src="./assets/js/analyzer.js"></script>
+</body>
+</html>

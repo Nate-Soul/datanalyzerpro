@@ -1,255 +1,585 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Compare Your Data | DatAnalyzer Pro</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
-    <header>
-      <div class="collapse bg-dark" id="navbarHeader">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-8 col-md-7 py-4">
-              <h4 class="text-white">About</h4>
-              <p class="text-light">
-                Welcome to DatAnalyzer Pro – your go-to solution for seamless
-                dataset analysis. Empowering you to effortlessly compare and
-                understand two datasets simultaneously, our app delivers precise
-                insights with calculated means, standard deviations T-test and ANOVA
-                results. Dive into the world of data analytics with confidence,
-                transforming raw information into actionable knowledge. Elevate
-                your decision-making process with DatAnalyzer Pro today!
-              </p>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataCruncher - Statistical Analysis Made Simple</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/index.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <button class="mobile-nav-toggler">
+                    <span class="fas fa-eye"></span>
+                </button>
+                <a href="#" class="logo">
+                    <div class="logo-icon">D</div>
+                    <span>DataCruncher</span>
+                </a>
             </div>
-            <div class="col-sm-4 offset-md-1 py-4">
-              <h4 class="text-white">Contact</h4>
-              <ul class="list-unstyled">
-                <li>
-                  <a
-                    href="https://github.com/Nate-Soul/datanalyzerpro"
-                    class="text-white"
-                    >Github</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://linkedin.com/in/nathanael-ukpong"
-                    class="text-white"
-                    >LinkedIn</a
-                  >
-                </li>
-                <li>
-                  <a href="mailto:natesoul.dev@gmail.com" class="text-white"
-                    >Email me</a
-                  >
-                </li>
-              </ul>
+            <ul class="nav-links">
+                <li><a href="./index.html" class="active">Home</a></li>
+                <li><a href="#product">Product</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn-sign-in">Sign In</a>
+                <a href="./analyzer.html" class="btn-primary">Try for Free</a>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="navbar navbar-dark bg-dark shadow-sm">
-        <div class="container">
-          <a href="#" class="navbar-brand d-flex align-items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              role="img"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              aria-hidden="true"
-              class="me-2"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
-              />
-              <circle cx="12" cy="13" r="4" />
-            </svg>
-            <strong>DatAnalyzer Pro</strong>
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarHeader"
-            aria-controls="navbarHeader"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </div>
-    </header>
-    <main>
-      <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light text-capitalize">
-              Compare, Analyze, and Interprete Your Datasets with Precision!
-            </h1>
-            <p class="lead text-muted">
-              Effortlessly analyze two datasets side by side, uncovering
-              meaningful insights with calculated means, standard deviations,
-              and T-test results. Transform raw data into actionable knowledge
-              effortlessly.
-            </p>
-            <p>
-              <a href="#analyze" class="btn btn-dark my-2">Start Comparing</a>
-              <!-- <a href="#" class="btn btn-secondary my-2">Secondary action</a> -->
-            </p>
-          </div>
-        </div>
-      </section>
+    </nav>
 
-      <section id="analyze" class="py-5 bg-dark">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-6 mx-md-auto">
-              <div class="card card-body text-center text-dark">
-                <h2 class="card-title h4 mb-4">Compare Your Data</h2>
-                <form id="compareDataForm" class="text-start">
-                  <p class="form-text">
-                    To start comparing your datasets, enter your dataset values
-                    <span class="text-info">(numbers only)</span> separated by
-                    commas in the text field. You can add more text fields as per your requirements.
-                    Select the analysis options you need and click on run analysis to get results.
-                  </p>
-                  <div id="dataBox1" class="mb-3 form-floating data-field position-relative">
-                    <textarea
-                      name="field1"
-                      id="field1"
-                      rows="5"
-                      class="form-control"
-                      required
-                    ></textarea>
-                    <label for="field1">Dataset 1</label>
-                  </div>
-                  <button type="button" id="createFieldBtn" class="btn rounded-circle">
-                    <span>&plus;</span>
-                  </button>
-                  <div class="mb-3">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        name="analysisOptions[]"
-                        id="stdDeviationType_population"
-                        class="form-check-input"
-                        value="population"
-                        checked
-                      />
-                      <label for="stdDeviationType_population" class="form-check-label">
-                        Population Standard Deviation
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        name="analysisOptions[]"
-                        id="stdDeviationType_sample"
-                        class="form-check-input"
-                        value="sample"
-                      />
-                      <label for="stdDeviationType_sample" class="form-check-label">
-                        Sample Standard Deviation
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        name="analysisOptions[]"
-                        id="meanOption"
-                        class="form-check-input"
-                        value="mean"
-                      />
-                      <label for="meanOption" class="form-check-label">
-                        Mean
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        name="analysisOptions[]"
-                        id="tTest"
-                        class="form-check-input"
-                        value="t_test"
-                      />
-                      <label for="tTest" class="form-check-label">
-                        Student T-test
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        name="analysisOptions[]"
-                        id="anovaOneWay"
-                        class="form-check-input"
-                        value="anova_one_way"
-                      />
-                      <label for="anovaOneWay" class="form-check-label">
-                        One Way Anova
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        name="analysisOptions[]"
-                        id="anovaTwoWay"
-                        class="form-check-input"
-                        value="anova_two_way"
-                      />
-                      <label for="anovaTwoWay" class="form-check-label">
-                        Two Way Anova
-                      </label>
-                    </div>
-                  </div>
-                  
-                  <button
-                    id="compareDataBtn"
-                    class="btn btn-dark w-100 d-inline-flex justify-content-center align-items-center"
-                    type="submit"
-                  >
-                    Run Analysis
-                    <img
-                      role="status"
-                      src="assets/images/loader.gif"
-                      alt="loading..."
-                      class="ms-2 d-none"
-                    />
-                    <!-- <div role="status" class="spinner-border spinner-border-sm text-warning ms-2">
-                                        <span class="visually-hidden">loading...</span>
-                                    </div> -->
-                  </button>
-                  <div id="errorDisplay" class="my-2 text-danger"></div>
-                </form>
-                <div id="results" class="p-4 mt-2 d-none">
-                  <h5 class="h5 mb-4">Results</h5>
-                  <div class="inner"></div>
-                </div>
-              </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
             </div>
-          </div>
         </div>
-      </section>
-    </main>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-    <script src="./assets/js/script.js"></script>
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-badge">AI-POWERED ANALYTICS</div>
+                <h1 class="hero-title">
+                    Statistical Analysis Made <span class="gradient-text">Simple</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Transform raw data into actionable insights in seconds. No PhD required.
+                </p>
+                <div class="hero-cta">
+                    <a href="./analyzer.html" class="btn-primary btn-large">Try for Free</a>
+                    <!-- <a href="#" class="btn-secondary btn-large">
+                        <i class="fas fa-play"></i>
+                        Watch Demo
+                    </a> -->
+                </div>
+                <div class="trust-indicator">
+                    Trusted by 1,000+ students and researchers
+                </div>
+                <div class="company-logos">
+                    <i class="fab fa-microsoft company-logo" style="font-size: 32px;"></i>
+                    <i class="fab fa-google company-logo" style="font-size: 32px;"></i>
+                    <i class="fas fa-university company-logo" style="font-size: 28px;"></i>
+                    <i class="fas fa-graduation-cap company-logo" style="font-size: 32px;"></i>
+                    <i class="fab fa-amazon company-logo" style="font-size: 32px;"></i>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-visual">
+                    <div class="dashboard-mockup">
+                        <svg width="100%" height="400" viewBox="0 0 600 400">
+                            <!-- Dashboard mockup illustration -->
+                            <defs>
+                                <linearGradient id="dashGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#7C3AED;stop-opacity:0.9"></stop>
+                                    <stop offset="100%" style="stop-color:#EC4899;stop-opacity:0.9"></stop>
+                                </linearGradient>
+                                <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                                    <fedropshadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.15"></fedropshadow>
+                                </filter>
+                            </defs>
+                            
+                            <!-- Card 1 - Chart -->
+                            <rect x="40" y="40" width="240" height="160" rx="8" fill="white" filter="url(#shadow)"></rect>
+                            <path d="M80 160 L120 140 L160 120 L200 100 L240 80" stroke="url(#dashGradient)" stroke-width="3" fill="none"></path>
+                            <circle cx="80" cy="160" r="4" fill="#7C3AED"></circle>
+                            <circle cx="120" cy="140" r="4" fill="#7C3AED"></circle>
+                            <circle cx="160" cy="120" r="4" fill="#7C3AED"></circle>
+                            <circle cx="200" cy="100" r="4" fill="#7C3AED"></circle>
+                            <circle cx="240" cy="80" r="4" fill="#7C3AED"></circle>
+                            
+                            <!-- Card 2 - Stats -->
+                            <rect x="320" y="40" width="240" height="160" rx="8" fill="white" filter="url(#shadow)"></rect>
+                            <text x="360" y="80" font-family="Inter" font-size="36" font-weight="800" fill="#1E293B">98.7%</text>
+                            <text x="360" y="105" font-family="Inter" font-size="14" fill="#64748B">Accuracy Rate</text>
+                            <rect x="360" y="120" width="180" height="8" rx="4" fill="#F1F5F9"></rect>
+                            <rect x="360" y="120" width="150" height="8" rx="4" fill="url(#dashGradient)"></rect>
+                            
+                            <!-- Card 3 - Data -->
+                            <rect x="40" y="220" width="520" height="140" rx="8" fill="white" filter="url(#shadow)"></rect>
+                            <rect x="60" y="240" width="120" height="20" rx="4" fill="#F8FAFC"></rect>
+                            <rect x="200" y="240" width="80" height="20" rx="4" fill="#F8FAFC"></rect>
+                            <rect x="300" y="240" width="100" height="20" rx="4" fill="#F8FAFC"></rect>
+                            <rect x="420" y="240" width="120" height="20" rx="4" fill="#F8FAFC"></rect>
+                            
+                            <rect x="60" y="275" width="120" height="16" rx="4" fill="#EDE9FE"></rect>
+                            <rect x="200" y="275" width="80" height="16" rx="4" fill="#EDE9FE"></rect>
+                            <rect x="300" y="275" width="100" height="16" rx="4" fill="#EDE9FE"></rect>
+                            <rect x="420" y="275" width="120" height="16" rx="4" fill="#EDE9FE"></rect>
+                            
+                            <rect x="60" y="305" width="120" height="16" rx="4" fill="#F8FAFC"></rect>
+                            <rect x="200" y="305" width="80" height="16" rx="4" fill="#F8FAFC"></rect>
+                            <rect x="300" y="305" width="100" height="16" rx="4" fill="#F8FAFC"></rect>
+                            <rect x="420" y="305" width="120" height="16" rx="4" fill="#F8FAFC"></rect>
+                            
+                            <!-- Floating elements -->
+                            <circle cx="550" cy="30" r="20" fill="#7C3AED" opacity="0.2">
+                                <animate attributeName="cy" values="30;20;30" dur="3s" repeatCount="indefinite"></animate>
+                            </circle>
+                            <rect x="10" y="350" width="30" height="30" rx="6" fill="#EC4899" opacity="0.2">
+                                <animate attributeName="y" values="350;340;350" dur="4s" repeatCount="indefinite"></animate>
+                            </rect>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <!-- <section class="social-proof">
+        <div class="container">
+            <div class="social-proof-heading">Used by leading organizations worldwide</div>
+            <div class="logo-grid">
+                <i class="fab fa-microsoft partner-logo"></i>
+                <i class="fab fa-google partner-logo"></i>
+                <i class="fas fa-university partner-logo"></i>
+                <i class="fas fa-graduation-cap partner-logo"></i>
+                <i class="fab fa-amazon partner-logo"></i>
+                <i class="fab fa-apple partner-logo"></i>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Everything you need</h2>
+                <p class="section-subtitle">Powerful statistical tools designed for both beginners and experts</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-upload"></i>
+                    </div>
+                    <h3 class="feature-title">Upload Any Format</h3>
+                    <p class="feature-description">Import data from CSV, XLSX, JSON, or copy-paste directly. We handle the rest automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">One-Click Analysis</h3>
+                    <p class="feature-description">Run t-tests, ANOVA, regression, and more with a single click. No coding required.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="feature-title">Beautiful Visualizations</h3>
+                    <p class="feature-description">Generate publication-ready charts and graphs instantly. Export in multiple formats.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="feature-title">AI-Powered Insights</h3>
+                    <p class="feature-description">Get natural language explanations of your results. Understand statistics without the jargon.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Collaborate in Real-Time</h3>
+                    <p class="feature-description">Share analyses with your team. Comment, review, and iterate together seamlessly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3 class="feature-title">Export Anywhere</h3>
+                    <p class="feature-description">Download results as PDF, CSV, XLSX, or copy to clipboard for presentations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase Section -->
+    <section class="product-showcase" id="product">
+        <div class="container">
+            <!-- Showcase 1 -->
+            <div class="showcase-item">
+                <div class="showcase-image">
+                    <svg class="screenshot" width="100%" height="360" viewBox="0 0 540 360">
+                        <rect width="540" height="360" rx="12" fill="white"></rect>
+                        <rect x="20" y="20" width="500" height="40" rx="6" fill="#F8FAFC"></rect>
+                        <rect x="20" y="80" width="500" height="60" rx="6" fill="#F8FAFC"></rect>
+                        <rect x="20" y="160" width="500" height="60" rx="6" fill="#F8FAFC"></rect>
+                        <circle cx="480" cy="120" r="12" fill="#EF4444"></circle>
+                        <circle cx="480" cy="200" r="12" fill="#EF4444"></circle>
+                        <rect x="20" y="240" width="240" height="40" rx="6" fill="#EBF2F8"></rect>
+                        <text x="40" y="267" font-family="Inter" font-size="14" fill="#2D61A4">+ Add Dataset</text>
+                        <rect x="20" y="300" width="500" height="40" rx="6" fill="url(#dashGradient)"></rect>
+                        <text x="250" y="327" font-family="Inter" font-size="16" font-weight="600" fill="white" text-anchor="middle">Run Analysis</text>
+                    </svg>
+                </div>
+                <div class="showcase-content">
+                    <div class="showcase-badge">SMART DATA INPUT</div>
+                    <h3 class="showcase-title">Import and Clean Data in Seconds</h3>
+                    <p class="showcase-description">
+                        Upload CSV or Excel files, or paste data directly. Our intelligent system automatically detects data types, handles missing values, and prepares your dataset for analysis.
+                    </p>
+                    <ul class="showcase-features">
+                        <li><i class="fas fa-check-circle"></i> Auto-detect columns and data types</li>
+                        <li><i class="fas fa-check-circle"></i> Handle missing values intelligently</li>
+                        <li><i class="fas fa-check-circle"></i> Support for multiple datasets</li>
+                        <li><i class="fas fa-check-circle"></i> Instant data validation feedback</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Showcase 2 -->
+            <div class="showcase-item reverse">
+                <div class="showcase-image">
+                    <svg class="screenshot" width="100%" height="360" viewBox="0 0 540 360">
+                        <rect width="540" height="360" rx="12" fill="white"></rect>
+                        
+                        <!-- Stats Cards -->
+                        <rect x="20" y="20" width="160" height="100" rx="8" fill="#F8FAFC"></rect>
+                        <text x="40" y="50" font-family="Inter" font-size="12" fill="#64748B">Mean</text>
+                        <text x="40" y="80" font-family="Inter" font-size="28" font-weight="800" fill="#1E293B">45.3</text>
+                        
+                        <rect x="190" y="20" width="160" height="100" rx="8" fill="#F8FAFC"></rect>
+                        <text x="210" y="50" font-family="Inter" font-size="12" fill="#64748B">Std Dev</text>
+                        <text x="210" y="80" font-family="Inter" font-size="28" font-weight="800" fill="#1E293B">8.2</text>
+                        
+                        <rect x="360" y="20" width="160" height="100" rx="8" fill="#F8FAFC"></rect>
+                        <text x="380" y="50" font-family="Inter" font-size="12" fill="#64748B">p-value</text>
+                        <text x="380" y="80" font-family="Inter" font-size="28" font-weight="800" fill="#10B981">0.003</text>
+                        
+                        <!-- Chart -->
+                        <rect x="20" y="140" width="500" height="200" rx="8" fill="#F8FAFC"></rect>
+                        <rect x="60" y="260" width="60" height="60" rx="4" fill="url(#dashGradient)"></rect>
+                        <rect x="140" y="220" width="60" height="100" rx="4" fill="url(#dashGradient)"></rect>
+                        <rect x="220" y="240" width="60" height="80" rx="4" fill="url(#dashGradient)"></rect>
+                        <rect x="300" y="200" width="60" height="120" rx="4" fill="url(#dashGradient)"></rect>
+                        <rect x="380" y="180" width="60" height="140" rx="4" fill="url(#dashGradient)"></rect>
+                    </svg>
+                </div>
+                <div class="showcase-content">
+                    <div class="showcase-badge">INSTANT RESULTS</div>
+                    <h3 class="showcase-title">Get Professional Analysis Instantly</h3>
+                    <p class="showcase-description">
+                        View comprehensive statistical results with interactive visualizations. Export publication-ready charts and detailed reports in multiple formats.
+                    </p>
+                    <ul class="showcase-features">
+                        <li><i class="fas fa-check-circle"></i> Descriptive statistics at a glance</li>
+                        <li><i class="fas fa-check-circle"></i> Interactive charts and graphs</li>
+                        <li><i class="fas fa-check-circle"></i> Statistical significance indicators</li>
+                        <li><i class="fas fa-check-circle"></i> Export to PDF, CSV, or XLSX</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Showcase 3 -->
+            <div class="showcase-item">
+                <div class="showcase-image">
+                    <svg class="screenshot" width="100%" height="360" viewBox="0 0 540 360">
+                        <rect width="540" height="360" rx="12" fill="white"></rect>
+                        
+                        <!-- Export buttons -->
+                        <rect x="20" y="20" width="160" height="50" rx="6" fill="#EF4444"></rect>
+                        <text x="60" y="50" font-family="Inter" font-size="14" font-weight="600" fill="white">Export PDF</text>
+                        
+                        <rect x="190" y="20" width="160" height="50" rx="6" fill="#10B981"></rect>
+                        <text x="230" y="50" font-family="Inter" font-size="14" font-weight="600" fill="white">Export CSV</text>
+                        
+                        <rect x="360" y="20" width="160" height="50" rx="6" fill="#2D61A4"></rect>
+                        <text x="395" y="50" font-family="Inter" font-size="14" font-weight="600" fill="white">Export XLSX</text>
+                        
+                        <!-- AI Chat Section -->
+                        <defs>
+                            <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#7C3AED;stop-opacity:1"></stop>
+                                <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1"></stop>
+                            </linearGradient>
+                        </defs>
+                        <rect x="20" y="100" width="500" height="240" rx="12" fill="url(#aiGradient)"></rect>
+                        
+                        <circle cx="90" cy="170" r="30" fill="white" opacity="0.3"></circle>
+                        <text x="90" y="180" font-family="Inter" font-size="24" fill="white" text-anchor="middle">🤖</text>
+                        
+                        <text x="270" y="150" font-family="Inter" font-size="24" font-weight="700" fill="white" text-anchor="middle">Ask AI About Your Data</text>
+                        <text x="270" y="180" font-family="Inter" font-size="14" fill="white" opacity="0.9" text-anchor="middle">Get natural language insights and</text>
+                        <text x="270" y="200" font-family="Inter" font-size="14" fill="white" opacity="0.9" text-anchor="middle">recommendations from your analysis</text>
+                        
+                        <rect x="180" y="230" width="180" height="40" rx="20" fill="white" opacity="0.2"></rect>
+                        <rect x="185" y="235" width="170" height="30" rx="15" fill="transparent" stroke="white" stroke-width="2"></rect>
+                        <text x="270" y="256" font-family="Inter" font-size="14" font-weight="600" fill="white" text-anchor="middle">Coming Soon</text>
+                        
+                        <rect x="200" y="290" width="140" height="36" rx="6" fill="white"></rect>
+                        <text x="270" y="313" font-family="Inter" font-size="14" font-weight="600" fill="#7C3AED" text-anchor="middle">Notify Me</text>
+                    </svg>
+                </div>
+                <div class="showcase-content">
+                    <div class="showcase-badge coming-soon">COMING SOON</div>
+                    <h3 class="showcase-title">Ask AI About Your Data</h3>
+                    <p class="showcase-description">
+                        Our upcoming AI assistant will answer questions about your analysis in plain English. Get recommendations, understand complex results, and discover insights you might have missed.
+                    </p>
+                    <ul class="showcase-features">
+                        <li><i class="fas fa-check-circle"></i> Natural language queries</li>
+                        <li><i class="fas fa-check-circle"></i> Intelligent recommendations</li>
+                        <li><i class="fas fa-check-circle"></i> Automated insight discovery</li>
+                        <li><i class="fas fa-check-circle"></i> Plain English explanations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">From Data to Insights in 3 Steps</h2>
+                <p class="section-subtitle">Get started with DataCruncher in minutes, not hours</p>
+            </div>
+            <div class="steps-container">
+                <div class="steps-timeline">
+                    <div class="timeline-line"></div>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div>
+                            <div class="step-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <h3 class="step-title">Upload Your Data</h3>
+                            <p class="step-description">
+                                Import from CSV, Excel, or paste directly. Our system automatically validates and prepares your data.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div>
+                            <div class="step-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h3 class="step-title">Select Analysis</h3>
+                            <p class="step-description">
+                                Choose from our library of statistical tests or use our smart recommendations for your data type.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div>
+                            <div class="step-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="step-title">Get Results</h3>
+                            <p class="step-description">
+                                View comprehensive results with visualizations, export reports, and share insights with your team.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Start Free, Scale as You Grow</h2>
+                <p class="section-subtitle">Choose the plan that's right for your needs</p>
+            </div>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-plan">Free</div>
+                    <div class="pricing-price">$0<span>/month</span></div>
+                    <p class="pricing-description">Perfect for students and individual researchers</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Up to 5 analyses per month</li>
+                        <li><i class="fas fa-check"></i> Basic statistical tests</li>
+                        <li><i class="fas fa-check"></i> CSV export</li>
+                        <li><i class="fas fa-check"></i> Standard visualizations</li>
+                        <li><i class="fas fa-check"></i> Community support</li>
+                    </ul>
+                    <a href="#" class="btn-secondary pricing-cta">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="pricing-plan">Professional</div>
+                    <div class="pricing-price">$29<span>/month</span></div>
+                    <p class="pricing-description">For professionals and small teams</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Unlimited analyses</li>
+                        <li><i class="fas fa-check"></i> All statistical tests</li>
+                        <li><i class="fas fa-check"></i> PDF, CSV, XLSX export</li>
+                        <li><i class="fas fa-check"></i> Advanced visualizations</li>
+                        <li><i class="fas fa-check"></i> Team collaboration (3 users)</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                        <li><i class="fas fa-check"></i> AI insights (when available)</li>
+                    </ul>
+                    <a href="#" class="btn-primary pricing-cta">Start Free Trial</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-plan">Enterprise</div>
+                    <div class="pricing-price">Custom</div>
+                    <p class="pricing-description">For large teams and organizations</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Everything in Professional</li>
+                        <li><i class="fas fa-check"></i> Unlimited team members</li>
+                        <li><i class="fas fa-check"></i> Custom integrations</li>
+                        <li><i class="fas fa-check"></i> White-label options</li>
+                        <li><i class="fas fa-check"></i> Dedicated account manager</li>
+                        <li><i class="fas fa-check"></i> SLA guarantee</li>
+                        <li><i class="fas fa-check"></i> On-premise deployment</li>
+                    </ul>
+                    <a href="#" class="btn-secondary pricing-cta">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Loved by Data Professionals</h2>
+                <p class="section-subtitle">See what our users have to say about DataCruncher</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "DataCruncher has completely transformed how we handle statistical analysis. What used to take hours now takes minutes. The AI insights feature is a game-changer for our research team."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div class="author-info">
+                            <div class="author-name">Dr. Sarah Mitchell</div>
+                            <div class="author-title">Research Director, Stanford University</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "As someone without a strong statistics background, DataCruncher made complex analyses accessible. The natural language explanations helped me understand what my data was telling me."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JC</div>
+                        <div class="author-info">
+                            <div class="author-name">James Chen</div>
+                            <div class="author-title">Product Manager, Microsoft</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "The export functionality is outstanding. I can generate publication-ready reports in seconds, and the visualizations look professional right out of the box. Highly recommended!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">ER</div>
+                        <div class="author-info">
+                            <div class="author-name">Dr. Emily Rodriguez</div>
+                            <div class="author-title">Data Scientist, Google</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">
+                        "DataCruncher's team collaboration features have streamlined our workflow. Everyone on the team can access, review, and iterate on analyses in real-time. It's incredibly efficient."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MA</div>
+                        <div class="author-info">
+                            <div class="author-name">Michael Anderson</div>
+                            <div class="author-title">Analytics Lead, Amazon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2 class="final-cta-title">Ready to Transform Your Data?</h2>
+            <p class="final-cta-subtitle">
+                Join thousands of professionals making better decisions with DataCruncher
+            </p>
+            <a href="#" class="btn-cta-white">
+                Start Your Free Trial
+                <i class="fas fa-arrow-right"></i>
+            </a>
+            <p class="cta-disclaimer">
+                No credit card required • 14-day free trial • Cancel anytime
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-icon">D</div>
+                        <span>DataCruncher</span>
+                    </div>
+                    <p class="footer-tagline">
+                        Transform raw data into actionable insights with our powerful statistical analysis platform.
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Changelog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">API Docs</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2024 DataCruncher. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="./assets/js/index.js"></script>
   </body>
 </html>
