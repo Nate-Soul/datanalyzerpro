@@ -1,19 +1,3 @@
-const datasetContainer = document.getElementById("dataset-fields-container");
-const addDatasetButton = document.getElementById("add-dataset");
-const fileUploadInput = document.getElementById("file-upload");
-const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
-const filePreview = document.getElementById("file-preview");
-const importedDatasetsList = document.getElementById("imported-datasets-list");
-const submitBtn = document.querySelector(".run-analysis-btn");
-const resultsDisplay = document.querySelector("#results");
-const errorDisplay = document.querySelector("#errorDisplay");
-
-if (!datasetContainer || !addDatasetButton || !fileUploadInput || !submitBtn || !resultsDisplay || !errorDisplay) {
-    console.error("Essential DOM elements are missing.");
-}
-
-let datasetCount = 3;
-
 /**
  * Calculates the summation of an array of numeric values.
  * @param {Array<number|string>} values - An array of numbers or strings that can be parsed to numbers.
@@ -241,384 +225,466 @@ const parseAndValidateFieldValues = (fieldValue) => {
     return (parsed.length >= 3) ? parsed : null;
 };
 
-/**
- * Validates a single data input field based on its content.
- * @param {string} fieldId - The ID of the textarea field to validate.
- * @param {HTMLElement} textareaElement - The DOM element to display error messages.
- * @returns {boolean} True if the field is valid, false otherwise.
- */
-const validateDataset = (textareaElement, validationMessageId) => {
-    const value = textareaElement.value.trim();
-    const validationDiv = document.getElementById(validationMessageId);
-    validationDiv.textContent = "";
-    textareaElement.style.borderColor = "";
-
-    if (value === "") {
-        validationDiv.textContent = "Dataset cannot be empty.";
-        textareaElement.style.borderColor = "#d64937";
-        return false;
+document.addEventListener("DOMContentLoaded", () => {    
+    const datasetContainer = document.getElementById("dataset-fields-container");
+    const addDatasetButton = document.getElementById("add-dataset");
+    const fileUploadInput = document.getElementById("file-upload");
+    const fileUploadWrapper = document.querySelector(".file-upload-wrapper");
+    const filePreview = document.getElementById("file-preview");
+    const importedDatasetsList = document.getElementById("imported-datasets-list");
+    const submitBtn = document.querySelector(".run-analysis-btn");
+    const resultsDisplay = document.querySelector("#results");
+    const errorDisplay = document.querySelector("#errorDisplay");
+    
+    if (!datasetContainer || !addDatasetButton || !fileUploadInput || !submitBtn || !resultsDisplay || !errorDisplay) {
+        console.error("Essential DOM elements are missing.");
     }
-
-    const parsed = parseAndValidateFieldValues(value);
-    if (parsed === null) {
-        validationDiv.textContent = "Please provide at least 3 valid numeric values, comma-separated.";
-        textareaElement.style.borderColor = "#d64937";
-        return false;
-    }
-
-    textareaElement.style.borderColor = "#e0e4e8";
-    return true;
-};
-
-const toggleSubmitButton = (text, showLoader = false) => {
-    if (submitBtn.childNodes[0]) {
-        submitBtn.childNodes[0].textContent = text;
-    }
-    const loader = submitBtn.querySelector("img");
-    if (loader) {
-        loader.style.display = showLoader ? "inline-block" : "none";
-    }
-};
-
-// const displayResults = (results) => {
-//     let html = `<h3>Analysis Results</h3>`;
-
-//     if (results.mean) {
-//         html += `<p><strong>Means:</strong> ${results.mean.join(', ')}</p>`;
-//     }
-//     if (results.sampleSDs) {
-//         html += `<p><strong>Sample Standard Deviation:</strong> ${results.sampleSDs.join(', ')}</p>`;
-//     }
-//     if (results.populationSDs) {
-//         html += `<p><strong>Population Standard Deviation:</strong> ${results.populationSDs.join(', ')}</p>`;
-//     }
-//     if (results.ttest !== undefined) {
-//         html += `<p><strong>T-Test (t-value):</strong> ${results.ttest}</p>`;
-//     }
-//     if (results.anovaOneWayF !== undefined) {
-//         html += `<p><strong>One-Way ANOVA (F-value):</strong> ${results.anovaOneWayF}</p>`;
-//     }
-//     if (results.anovaTwoWay) {
-//         if (typeof results.anovaTwoWay === 'string') {
-//             html += `<p><strong>Two-Way ANOVA:</strong> ${results.anovaTwoWay}</p>`;
-//         } else {
-//             html += `<p><strong>Two-Way ANOVA:</strong><br>
-//                      Factor A (F): ${results.anovaTwoWay.factorA_F}<br>
-//                      Factor B (F): ${results.anovaTwoWay.factorB_F}</p>`;
-//         }
-//     }
-
-//     resultsDisplay.innerHTML = html;
-//     resultsDisplay.style.display = "block";
-// };
-
-// === UI: Create Dataset Row ===
-function createDatasetRow(id) {
-    const row = document.createElement("div");
-    row.classList.add("dataset-field-row");
-    row.setAttribute("data-id", id);
-
-    row.innerHTML = `
-        <div class="form-group dataset-label-input">
-            <label for="dataset-label-${id}">Dataset ${id} Label</label>
-            <input type="text" id="dataset-label-${id}" class="input-field" 
-                   placeholder="e.g., Control Group" value="Dataset ${id}" />
-        </div>
-        <div class="form-group dataset-value-input">
-            <label for="dataset-values-${id}">Comma-separated values</label>
-            <textarea id="dataset-values-${id}" class="input-field" 
-                      placeholder="e.g., 10, 12, 15, 11, 13"></textarea>
-            <div id="validation-${id}" class="validation-message"></div>
-        </div>
-        <button type="button" class="remove-dataset-btn" data-id="${id}" 
-                aria-label="Remove Dataset ${id}">
-            <i class="fas fa-times"></i>
-        </button>
-    `;
-
-    // Remove button
-    row.querySelector(".remove-dataset-btn").addEventListener("click", () => {
-        row.remove();
-        if (datasetContainer.children.length === 0) {
-            datasetCount++;
-            const newRow = createDatasetRow(datasetCount);
-            newRow.querySelector(".remove-dataset-btn").remove(); // Disable remove on last
-            datasetContainer.appendChild(newRow);
+    
+    let datasetCount = 3;
+    
+    /**
+     * Validates a single data input field based on its content.
+     * @param {string} fieldId - The ID of the textarea field to validate.
+     * @param {HTMLElement} textareaElement - The DOM element to display error messages.
+     * @returns {boolean} True if the field is valid, false otherwise.
+     */
+    const validateDataset = (textareaElement, validationMessageId) => {
+        const value = textareaElement.value.trim();
+        const validationDiv = document.getElementById(validationMessageId);
+        validationDiv.textContent = "";
+        textareaElement.style.borderColor = "";
+    
+        if (value === "") {
+            validationDiv.textContent = "Dataset cannot be empty.";
+            textareaElement.style.borderColor = "#d64937";
+            return false;
         }
-    });
-
-    // Real-time validation
-    const textarea = row.querySelector(`#dataset-values-${id}`);
-    textarea.addEventListener("input", () => validateDataset(textarea, `validation-${id}`));
-
-    return row;
-}
-
-// === Event Listeners ===
-addDatasetButton.addEventListener("click", () => {
-    datasetCount++;
-    const newRow = createDatasetRow(datasetCount);
-    datasetContainer.appendChild(newRow);
-    newRow.querySelector(".dataset-label-input input").focus();
-});
-
-// Delegated remove (covers dynamic rows)
-datasetContainer.addEventListener("click", (e) => {
-    const btn = e.target.closest(".remove-dataset-btn");
-    if (btn) {
-        const id = btn.dataset.id;
-        const row = datasetContainer.querySelector(`.dataset-field-row[data-id="${id}"]`);
-        if (row) row.remove();
-        if (datasetContainer.children.length === 0) {
-            datasetCount++;
-            const newRow = createDatasetRow(datasetCount);
-            newRow.querySelector(".remove-dataset-btn").remove();
-            datasetContainer.appendChild(newRow);
+    
+        const parsed = parseAndValidateFieldValues(value);
+        if (parsed === null) {
+            validationDiv.textContent = "Please provide at least 3 valid numeric values, comma-separated.";
+            textareaElement.style.borderColor = "#d64937";
+            return false;
         }
-    }
-});
-
-// File upload simulation
-fileUploadInput.addEventListener("change", (e) => {
-    if (e.target.files.length > 0) {
-        const file = e.target.files[0];
-        filePreview.style.display = "block";
-        importedDatasetsList.innerHTML = `
-            <li><strong>File:</strong> ${file.name}</li>
-            <li><em>(Simulated: Auto-detecting columns as datasets...)</em></li>
+    
+        textareaElement.style.borderColor = "#e0e4e8";
+        return true;
+    };
+    
+    const toggleSubmitButton = (text, showLoader = false) => {
+        if (submitBtn.childNodes[0]) {
+            submitBtn.childNodes[0].textContent = text;
+        }
+        const loader = submitBtn.querySelector("img");
+        if (loader) {
+            loader.style.display = showLoader ? "inline-block" : "none";
+        }
+    };
+    
+    // === UI: Create Dataset Row ===
+    const createDatasetRow = (id) => {
+        const row = document.createElement("div");
+        row.classList.add("dataset-field-row");
+        row.setAttribute("data-id", id);
+    
+        row.innerHTML = `
+            <div class="form-group dataset-label-input">
+                <label for="dataset-label-${id}">Dataset ${id} Label</label>
+                <input type="text" id="dataset-label-${id}" class="input-field" 
+                       placeholder="e.g., Control Group" value="Dataset ${id}" />
+            </div>
+            <div class="form-group dataset-value-input">
+                <label for="dataset-values-${id}">Comma-separated values</label>
+                <textarea id="dataset-values-${id}" class="input-field" 
+                          placeholder="e.g., 10, 12, 15, 11, 13"></textarea>
+                <div id="validation-${id}" class="validation-message"></div>
+            </div>
+            <button type="button" class="remove-dataset-btn" data-id="${id}" 
+                    aria-label="Remove Dataset ${id}">
+                <i class="fas fa-times"></i>
+            </button>
         `;
-    } else {
-        filePreview.style.display = "none";
-        importedDatasetsList.innerHTML = "";
-    }
-});
-
-fileUploadWrapper.addEventListener("click", () => fileUploadInput.click());
-fileUploadWrapper.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        fileUploadInput.click();
-    }
-});
-["dragover", "dragleave", "drop"].forEach(event => {
-    fileUploadWrapper.addEventListener(event, (e) => {
-        e.preventDefault();
-        if (event === "dragover") {
-            fileUploadWrapper.style.borderColor = "#5998d6";
-            fileUploadWrapper.style.backgroundColor = "rgba(89, 152, 214, 0.05)";
-        } else {
-            fileUploadWrapper.style.borderColor = "#e0e4e8";
-            fileUploadWrapper.style.backgroundColor = "transparent";
-        }
-        if (event === "drop") {
-            fileUploadInput.files = e.dataTransfer.files;
-            fileUploadInput.dispatchEvent(new Event("change"));
-        }
-    });
-});
-
-// === Enhanced Analysis Execution ===
-const performAnalyses = (
-    fullDataArrays, 
-    means, 
-    sampleSDs, 
-    populationSDs, 
-    noOfItems, 
-    selectedOptions,
-    datasets
-) => {
-    const results = {};
-
-    selectedOptions.forEach(option => {
-        switch (option) {
-            case "mean":
-                results.mean = means.map(m => m.toFixed(3));
-                break;
-
-            case "sample-std-dev":
-                results.sampleSDs = sampleSDs.map(s => parseFloat(s))
-                break;
-
-            case "population-std-dev":
-                results.populationSDs = populationSDs.map(p => parseFloat(p));
-                break;
-
-            case "t-test":
-                if (fullDataArrays.length !== 2) {
-                    results.ttest = "N/A (requires exactly 2 datasets)";
-                    errorDisplay.textContent = "T-Test requires exactly 2 datasets.";
-                } else {
-                    results.ttest = calculateTtest(means, noOfItems, populationSDs.map(p => parseFloat(p)));
-                    errorDisplay.textContent = "";
-                }
-                break;
-
-            case "anova-one-way":
-                if (fullDataArrays.length < 2) {
-                    results.anovaOneWay = "N/A (requires 2+ datasets)";
-                    errorDisplay.textContent = "One-Way ANOVA requires at least 2 datasets.";
-                } else {
-                    const anovaFull = calculateOneWayAnova(fullDataArrays, means, noOfItems);
-                    results.anovaOneWay = {
-                        F: anovaFull.F,
-                        ssBetween: anovaFull.ESSb,
-                        ssWithin: anovaFull.ESSw,
-                        msBetween: anovaFull.MeanSSb,
-                        msWithin: anovaFull.MeanSSw,
-                        dfBetween: anovaFull.DFb,
-                        dfWithin: anovaFull.DFW,
-                        totalSS: parseFloat(anovaFull.ESSb + anovaFull.ESSw).toFixed(3),
-                        totalDf: anovaFull.DFb + anovaFull.DFW
-                    };
-                    errorDisplay.textContent = "";
-                }
-                break;
-
-            case "anova-two-way":
-                // Simple two-way ANOVA (main effects only)
-                const twoWayResult = calculateTwoWayAnova(fullDataArrays, datasets); // datasets has labels
-                if (twoWayResult.error) {
-                    results.anovaTwoWay = twoWayResult.error;
-                    errorDisplay.textContent = twoWayResult.error;
-                } else {
-                    results.anovaTwoWay = {
-                        factorA_F: twoWayResult.factorA_F,
-                        factorB_F: twoWayResult.factorB_F,
-                        // interaction not implemented yet
-                    };
-                    errorDisplay.textContent = "";
-                }
-                break;
-
-            default:
-                console.log(`Unknown analysis option: ${option}`);
-        }
-    });
-
-    return results;
-};
-
-// === Submit & Analysis ===
-submitBtn.addEventListener("click", () => {
-    let allValid = true;
-    const datasets = []; // { label, values[] }
-    const fullDataArrays = []; // For ANOVA: [[values...], ...]
-
-    document.querySelectorAll(".dataset-field-row").forEach((row) => {
-        const id = row.dataset.id;
-        const labelInput = row.querySelector(`#dataset-label-${id}`);
-        const textarea = row.querySelector(`#dataset-values-${id}`);
-
-        if (!validateDataset(textarea, `validation-${id}`)) {
-            allValid = false;
-            return;
-        }
-
-        const parsed = parseAndValidateFieldValues(textarea.value);
-        if (parsed) {
-            datasets.push({
-                label: labelInput.value.trim() || `Dataset ${id}`,
-                values: parsed
-            });
-            fullDataArrays.push(parsed);
-        }
-    });
-
-    const selectedOptions = Array.from(
-        document.querySelectorAll(".analysis-options-grid input[type='checkbox']:checked")
-    ).map(cb => cb.value);
-
-    if (!allValid || datasets.length === 0) {
-        errorDisplay.textContent = "Please fix the errors in the datasets to continue.";
-        toggleSubmitButton("Run Analysis", false);
-        return;
-    }
-
-    if (selectedOptions.length === 0) {
-        errorDisplay.textContent = "Please select at least one analysis option.";
-        toggleSubmitButton("Run Analysis", false);
-        return;
-    }
-
-    toggleSubmitButton("Running Analysis...", true);
-    errorDisplay.textContent = "";
-    resultsDisplay.style.display = "none";
-
-    setTimeout(() => {
-        // Compute stats
-        const means = datasets.map(d => calculateMean(d.values));
-        const populationSDs = datasets.map(d => calculateSD(d.values, "population"));
-        const sampleSDs = datasets.map(d => calculateSD(d.values, "sample"));
-        const noOfItems = datasets.map(d => d.values.length);
-
-        const analysisResults = performAnalyses(
-            fullDataArrays,
-            means,
-            sampleSDs,
-            populationSDs,
-            noOfItems,
-            selectedOptions,
-            datasets
-        );
-
-        // === Prepare data to send to results page ===
-        const resultsPayload = {
-            date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-            time: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }),
-            datasetCount: datasets.length,
-            datasets: datasets.map(ds => ({
-                label: ds.label,
-                values: ds.values,
-                mean: calculateMean(ds.values).toFixed(3),
-                stdDev: parseFloat(calculateSD(ds.values, "sample")), // using sample SD
-                n: ds.values.length
-            })),
-            summaryStats: {
-                means: means.map(m => parseFloat(m.toFixed(3))),
-                sampleSDs: sampleSDs.map(s => parseFloat(s)),
-                populationSDs: populationSDs.map(p => parseFloat(p))
-            },
-            analyses: {}
-        };
-
-        // Add selected analyses
-        selectedOptions.forEach(option => {
-            switch (option) {
-                case "t-test":
-                    if (datasets.length === 2) {
-                        resultsPayload.analyses.tTest = {
-                            t: analysisResults.ttest,
-                            // We'll calculate p-value and CI in results.js if needed
-                            comparison: `${datasets[0].label} vs ${datasets[1].label}`
-                        };
-                    }
-                    break;
-                case "anova-one-way":
-                    if (datasets.length >= 2) {
-                        resultsPayload.analyses.anovaOneWay = analysisResults.anovaOneWay;
-                        // Full table will be computed in results.js
-                    }
-                    break;
-                case "anova-two-way":
-                    if (analysisResults.anovaTwoWay && typeof analysisResults.anovaTwoWay !== 'string') {
-                        resultsPayload.analyses.anovaTwoWay = analysisResults.anovaTwoWay;
-                    }
-                    break;
+    
+        // Remove button
+        row.querySelector(".remove-dataset-btn").addEventListener("click", () => {
+            row.remove();
+            if (datasetContainer.children.length === 0) {
+                datasetCount++;
+                const newRow = createDatasetRow(datasetCount);
+                newRow.querySelector(".remove-dataset-btn").remove(); // Disable remove on last
+                datasetContainer.appendChild(newRow);
             }
         });
+    
+        // Real-time validation
+        const textarea = row.querySelector(`#dataset-values-${id}`);
+        textarea.addEventListener("input", () => validateDataset(textarea, `validation-${id}`));
+    
+        return row;
+    };
+    
+    // === Event Listeners ===
+    addDatasetButton.addEventListener("click", () => {
+        datasetCount++;
+        const newRow = createDatasetRow(datasetCount);
+        datasetContainer.appendChild(newRow);
+        newRow.querySelector(".dataset-label-input input").focus();
+    });
+    
+    // Delegated remove (covers dynamic rows)
+    datasetContainer.addEventListener("click", (e) => {
+        const btn = e.target.closest(".remove-dataset-btn");
+        if (btn) {
+            const id = btn.dataset.id;
+            const row = datasetContainer.querySelector(`.dataset-field-row[data-id="${id}"]`);
+            if (row) row.remove();
+            if (datasetContainer.children.length === 0) {
+                datasetCount++;
+                const newRow = createDatasetRow(datasetCount);
+                newRow.querySelector(".remove-dataset-btn").remove();
+                datasetContainer.appendChild(newRow);
+            }
+        }
+    });
+    
+    // File upload simulation
+    fileUploadInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+    
+        if (!file) {
+            filePreview.style.display = "none";
+            importedDatasetsList.innerHTML = "";
+        }
+    
+        const fileType = file.name.split(".").pop().toLowerCase();
+        const reader = new FileReader();
+        
+        reader.onload = (e) => {
+            let datasets = []; 
+            
+            if (fileType === "csv") {
+                const results = Papa.parse(e.target.result, {
+                    header: true,
+                    dynamicTyping: true, // Auto-convert to numbers
+                    skipEmptyLines: true
+                });
+    
+                if (results.errors.length > 0) {
+                    alert("CSV parsing errors: " + results.errors.map(err => err.message).join(", "));
+                    return;
+                }
+    
+                // Transpose to columns as datasets
+                const fields = results.meta.fields;
+                datasets = fields.map(field => ({
+                    label: field,
+                    values: results.data.map(row => row[field]).filter(v => typeof v === "number" && !isNaN(v)) // Numeric only
+                })).filter(ds => ds.values.length >= 3); // Min 3 values per your validation
+            } else if (fileType === "xlsx" || fileType === "xls") {
+                console.log("Parsing Excel file...");
+                
+                const workbook = XLSX.read(e.target.result, { type: "binary" });
+                const firstSheet = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[firstSheet];
+                
+                // Convert to array of arrays (rows)
+                const data = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false }); // raw: false for type conversion
+    
+                if (data.length < 2) {
+                    alert("XLSX file has insufficient data.");
+                    return;
+                }
+                
+                // Transpose columns
+                const headers = data[0];
+                datasets = headers.map((header, colIndex) => ({
+                    label: header,
+                    values: data.slice(1).map(row => parseFloat(row[colIndex])).filter(v => !isNaN(v))
+                })).filter(ds => ds.values.length >= 3);
+            } else {
+                alert("Unsupported file type. Please upload CSV or XLSX.");
+                filePreview.style.display = "block";
+                importedDatasetsList.innerHTML = `
+                    <li><strong>File:</strong> ${file.name}</li>
+                    <li><em style="color: red;">Unsupported file type. Please upload CSV or XLSX.</em></li>
+                `;
+                return;
+            }
+    
+            // Preview and add to UI
+            filePreview.style.display = "block";
+            importedDatasetsList.innerHTML = `<li><strong>File:</strong> ${file.name}</li>`;
+            if (datasets.length === 0) {
+                importedDatasetsList.innerHTML += `<li><em>No valid numeric datasets found (need at least 3 values per column).</em></li>`;
+                return;
+            }
+    
+            // Clear existing datasets and add new ones
+            datasetContainer.innerHTML = "";
+            datasetCount = 0;
+            datasets.forEach(ds => {
+                datasetCount++;
+                const row = createDatasetRow(datasetCount);
+                row.querySelector(".dataset-label-input input").value = ds.label;
+                row.querySelector(".dataset-value-input textarea").value = ds.values.join(", ");
+                datasetContainer.appendChild(row);
+                validateDataset(row.querySelector("textarea"), `validation-${datasetCount}`);
+            });
+    
+            // Ensure at least one row
+            if (datasetContainer.children.length === 0) {
+                datasetCount = 1;
+                const firstRow = createDatasetRow(1);
+                firstRow.querySelector(".remove-dataset-btn").remove();
+                datasetContainer.appendChild(firstRow);
+            }
+    
+            importedDatasetsList.innerHTML += `<li><em>Imported ${datasets.length} datasets from columns.</em></li>`;
+        };
+        
+        if (fileType === "csv" || fileType === "xlsx" || fileType === "xls") {
+            reader.readAsBinaryString(file); // For SheetJS; PapaParse can use text
+        } else {
+            alert("Unsupported file type.");
+        }
+    });
+    
+    fileUploadWrapper.addEventListener("click", () => fileUploadInput.click());
+    fileUploadWrapper.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            fileUploadInput.click();
+        }
+    });
+    ["dragover", "dragleave", "drop"].forEach(event => {
+        fileUploadWrapper.addEventListener(event, (e) => {
+            e.preventDefault();
+            if (event === "dragover") {
+                fileUploadWrapper.style.borderColor = "#5998d6";
+                fileUploadWrapper.style.backgroundColor = "rgba(89, 152, 214, 0.05)";
+            } else {
+                fileUploadWrapper.style.borderColor = "#e0e4e8";
+                fileUploadWrapper.style.backgroundColor = "transparent";
+            }
+            if (event === "drop") {
+                fileUploadInput.files = e.dataTransfer.files;
+                fileUploadInput.dispatchEvent(new Event("change"));
+            }
+        });
+    });
+    
+    // === Enhanced Analysis Execution ===
+    const performAnalyses = (
+        fullDataArrays, 
+        means, 
+        sampleSDs, 
+        populationSDs, 
+        noOfItems, 
+        selectedOptions,
+        datasets
+    ) => {
+        const results = {};
+    
+        selectedOptions.forEach(option => {
+            switch (option) {
+                case "mean":
+                    results.mean = means.map(m => m.toFixed(3));
+                    break;
+    
+                case "sample-std-dev":
+                    results.sampleSDs = sampleSDs.map(s => parseFloat(s))
+                    break;
+    
+                case "population-std-dev":
+                    results.populationSDs = populationSDs.map(p => parseFloat(p));
+                    break;
+    
+                case "t-test":
+                    if (fullDataArrays.length !== 2) {
+                        results.ttest = "N/A (requires exactly 2 datasets)";
+                        errorDisplay.textContent = "T-Test requires exactly 2 datasets.";
+                    } else {
+                        results.ttest = calculateTtest(means, noOfItems, populationSDs.map(p => parseFloat(p)));
+                        errorDisplay.textContent = "";
+                    }
+                    break;
+    
+                case "anova-one-way":
+                    if (fullDataArrays.length < 2) {
+                        results.anovaOneWay = "N/A (requires 2+ datasets)";
+                        errorDisplay.textContent = "One-Way ANOVA requires at least 2 datasets.";
+                    } else {
+                        const anovaFull = calculateOneWayAnova(fullDataArrays, means, noOfItems);
+                        results.anovaOneWay = {
+                            F: anovaFull.F,
+                            ssBetween: anovaFull.ESSb,
+                            ssWithin: anovaFull.ESSw,
+                            msBetween: anovaFull.MeanSSb,
+                            msWithin: anovaFull.MeanSSw,
+                            dfBetween: anovaFull.DFb,
+                            dfWithin: anovaFull.DFW,
+                            totalSS: parseFloat(anovaFull.ESSb + anovaFull.ESSw).toFixed(3),
+                            totalDf: anovaFull.DFb + anovaFull.DFW
+                        };
+                        errorDisplay.textContent = "";
+                    }
+                    break;
+    
+                case "anova-two-way":
+                    // Simple two-way ANOVA (main effects only)
+                    const twoWayResult = calculateTwoWayAnova(fullDataArrays, datasets); // datasets has labels
+                    if (twoWayResult.error) {
+                        results.anovaTwoWay = twoWayResult.error;
+                        errorDisplay.textContent = twoWayResult.error;
+                    } else {
+                        results.anovaTwoWay = {
+                            factorA_F: twoWayResult.factorA_F,
+                            factorB_F: twoWayResult.factorB_F,
+                            // interaction not implemented yet
+                        };
+                        errorDisplay.textContent = "";
+                    }
+                    break;
+    
+                default:
+                    console.log(`Unknown analysis option: ${option}`);
+            }
+        });
+    
+        return results;
+    };
 
-        // Encode and open results page
-        const jsonString = JSON.stringify(resultsPayload);
-        const encoded = encodeURIComponent(jsonString);
-        window.open(`results.html?data=${encoded}`, '_blank');
-
-        // displayResults(analysisResults);
-        toggleSubmitButton("Analysis Complete", false);
-    }, 300); // Small delay for UX
+    const textareas = datasetContainer.querySelectorAll(".dataset-value-input textarea");
+    if (textareas && textareas.length > 0) {
+        textareas.forEach((textarea) => {
+            const id = textarea.id.split("-").pop();
+            // textarea.addEventListener("blur", () => validateDataset(textarea, `validation-${id}`));
+            textarea.addEventListener("input", () => validateDataset(textarea, `validation-${id}`));
+        });
+    }
+    
+    // === Submit & Analysis ===
+    submitBtn.addEventListener("click", () => {
+        let allValid = true;
+        const datasets = []; // { label, values[] }
+        const fullDataArrays = []; // For ANOVA: [[values...], ...]
+    
+        document.querySelectorAll(".dataset-field-row").forEach((row) => {
+            const id = row.dataset.id;
+            const labelInput = row.querySelector(`#dataset-label-${id}`);
+            const textarea = row.querySelector(`#dataset-values-${id}`);
+    
+            if (!validateDataset(textarea, `validation-${id}`)) {
+                allValid = false;
+                return;
+            }
+    
+            const parsed = parseAndValidateFieldValues(textarea.value);
+            if (parsed) {
+                datasets.push({
+                    label: labelInput.value.trim() || `Dataset ${id}`,
+                    values: parsed
+                });
+                fullDataArrays.push(parsed);
+            }
+        });
+    
+        const selectedOptions = Array.from(
+            document.querySelectorAll(".analysis-options-grid input[type='checkbox']:checked")
+        ).map(cb => cb.value);
+    
+        if (!allValid || datasets.length === 0) {
+            errorDisplay.textContent = "Please fix the errors in the datasets to continue.";
+            toggleSubmitButton("Run Analysis", false);
+            return;
+        }
+    
+        if (selectedOptions.length === 0) {
+            errorDisplay.textContent = "Please select at least one analysis option.";
+            toggleSubmitButton("Run Analysis", false);
+            return;
+        }
+    
+        toggleSubmitButton("Running Analysis...", true);
+        errorDisplay.textContent = "";
+        resultsDisplay.style.display = "none";
+    
+        setTimeout(() => {
+            // Compute stats
+            const means = datasets.map(d => calculateMean(d.values));
+            const populationSDs = datasets.map(d => calculateSD(d.values, "population"));
+            const sampleSDs = datasets.map(d => calculateSD(d.values, "sample"));
+            const noOfItems = datasets.map(d => d.values.length);
+    
+            const analysisResults = performAnalyses(
+                fullDataArrays,
+                means,
+                sampleSDs,
+                populationSDs,
+                noOfItems,
+                selectedOptions,
+                datasets
+            );
+    
+            // === Prepare data to send to results page ===
+            const resultsPayload = {
+                date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                time: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }),
+                datasetCount: datasets.length,
+                datasets: datasets.map(ds => ({
+                    label: ds.label,
+                    values: ds.values,
+                    mean: calculateMean(ds.values).toFixed(3),
+                    stdDev: parseFloat(calculateSD(ds.values, "sample")), // using sample SD
+                    n: ds.values.length
+                })),
+                summaryStats: {
+                    means: means.map(m => parseFloat(m.toFixed(3))),
+                    sampleSDs: sampleSDs.map(s => parseFloat(s)),
+                    populationSDs: populationSDs.map(p => parseFloat(p))
+                },
+                analyses: {}
+            };
+    
+            // Add selected analyses
+            selectedOptions.forEach(option => {
+                switch (option) {
+                    case "t-test":
+                        if (datasets.length === 2) {
+                            resultsPayload.analyses.tTest = {
+                                t: analysisResults.ttest,
+                                // We'll calculate p-value and CI in results.js if needed
+                                comparison: `${datasets[0].label} vs ${datasets[1].label}`
+                            };
+                        }
+                        break;
+                    case "anova-one-way":
+                        if (datasets.length >= 2) {
+                            resultsPayload.analyses.anovaOneWay = analysisResults.anovaOneWay;
+                            // Full table will be computed in results.js
+                        }
+                        break;
+                    case "anova-two-way":
+                        if (analysisResults.anovaTwoWay && typeof analysisResults.anovaTwoWay !== 'string') {
+                            resultsPayload.analyses.anovaTwoWay = analysisResults.anovaTwoWay;
+                        }
+                        break;
+                }
+            });
+    
+            // Encode and open results page
+            const jsonString = JSON.stringify(resultsPayload);
+            const encoded = encodeURIComponent(jsonString);
+            window.open(`results.html?data=${encoded}`, '_blank');
+    
+            // displayResults(analysisResults);
+            toggleSubmitButton("Run Analysis", false);
+        }, 300); // Small delay for UX
+    });
+    
+    // Initialize: If no rows exist on load, create first one (optional fallback)
+    if (datasetContainer.children.length === 0) {
+        datasetContainer.appendChild(createDatasetRow(1));
+        datasetContainer.querySelector(".remove-dataset-btn")?.remove();
+    }
 });
-
-// Initialize: If no rows exist on load, create first one (optional fallback)
-if (datasetContainer.children.length === 0) {
-    datasetContainer.appendChild(createDatasetRow(1));
-    datasetContainer.querySelector(".remove-dataset-btn")?.remove();
-}

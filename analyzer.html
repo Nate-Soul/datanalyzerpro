@@ -21,11 +21,11 @@
 
       <div class="preset-selection">
         <label for="preset-select">Select a Preset</label>
-        <select id="preset-select">
+        <select id="preset-select" disabled>
           <option value="none">-- Select an option --</option>
           <option value="two-group">Two-group Comparison</option>
           <option value="anova-3-plus">ANOVA (3+ groups)</option>
-          <option value="custom">Custom Analysis</option>
+          <option value="custom" selected>Custom Analysis</option>
         </select>
       </div>
 
@@ -141,6 +141,8 @@
       <div id="results" style="display: none; margin-top: 1rem;"></div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.0/papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="./assets/js/analyzer.js"></script>
 </body>
 </html>
